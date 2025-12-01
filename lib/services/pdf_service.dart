@@ -25,6 +25,26 @@ class PdfService {
           pw.SizedBox(height: 30),
           _buildFooter(),
         ],
+        header: (ctx) => pw.Container(
+          alignment: pw.Alignment.centerRight,
+          margin: const pw.EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+          padding: const pw.EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+          decoration: const pw.BoxDecoration(
+            border: pw.Border(bottom: pw.BorderSide(width: 0.5, color: PdfColors.grey)),
+          ),
+          child: pw.Text(
+            'NeuroLens Cognitive Report',
+            style: const pw.TextStyle(color: PdfColors.grey, fontSize: 10),
+          ),
+        ),
+        footer: (ctx) => pw.Container(
+          alignment: pw.Alignment.centerRight,
+          margin: const pw.EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+          child: pw.Text(
+            'Page ${ctx.pageNumber} of ${ctx.pagesCount}',
+            style: const pw.TextStyle(color: PdfColors.grey, fontSize: 10),
+          ),
+        ),
       ),
     );
 
