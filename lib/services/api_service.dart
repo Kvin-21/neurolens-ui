@@ -10,7 +10,9 @@ class ApiService {
   Future<Map<String, String?>> getStoredCredentials() async {
     return {
       'access_token': await _storage.read(key: 'access_token'),
+      'refresh_token': await _storage.read(key: 'refresh_token'),
       'patient_id': await _storage.read(key: 'patient_id'),
+      'role': await _storage.read(key: 'role'),
     };
   }
 
@@ -39,6 +41,7 @@ class ApiService {
     int retryCount = 0,
   }) async {
     final stored = await getStoredCredentials();
+    final accessToken = stored['access_token'];
 
     if (accessToken == null) throw Exception('No access token available');
 
@@ -213,7 +216,11 @@ class ApiService {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         return {'success': true, 'data': data};
-      }    }
+      }
+      return {'success': false, 'error': 'SingPass initialisation failed'};
+    } catch (_) {
+      return {'success': false, 'error': 'SingPass service unavailable'};
+    }
   }
 
   /// Report generation (kept for legacy support).
