@@ -107,6 +107,39 @@ class TopNavigation extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  void _showLogoutDialog(BuildContext context, AuthProvider auth) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Row(
+          children: [Icon(Icons.logout, color: Color(0xFFE53E3E)), SizedBox(width: 12), Text('Confirm Logout')],
+        ),
+        content: const Text('Are you sure you want to logout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            style: TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+            child: const Text('Cancel'),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [Color(0xFFE53E3E), Color(0xFFFF6B6B)]),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                auth.logout();
+              },
+              style: TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+              child: const Text('Logout', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

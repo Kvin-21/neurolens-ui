@@ -37,6 +37,43 @@ class Recommendations extends StatelessWidget {
   Widget _buildRecommendationCategories() {
     final recommendations = _generateRecommendations();
     
+    return Column(
+      children: [
+        _buildCategorySection(
+          'Cognitive Activities',
+          FontAwesomeIcons.brain,
+          Colors.blue,
+          recommendations['cognitive'] ?? [],
+        ),
+        const SizedBox(height: 20),
+        _buildCategorySection(
+          'Physical Exercise',
+          FontAwesomeIcons.dumbbell,
+          Colors.green,
+          recommendations['physical'] ?? [],
+        ),
+        const SizedBox(height: 20),
+        _buildCategorySection(
+          'Speech & Communication',
+          FontAwesomeIcons.commentDots,
+          Colors.orange,
+          recommendations['speech'] ?? [],
+        ),
+        const SizedBox(height: 20),
+        _buildCategorySection(
+          'Lifestyle & Wellness',
+          FontAwesomeIcons.heart,
+          Colors.red,
+          recommendations['lifestyle'] ?? [],
+        ),
+        const SizedBox(height: 20),
+        _buildCategorySection(
+          'Medical Follow-up',
+          FontAwesomeIcons.stethoscope,
+          Colors.purple,
+          recommendations['medical'] ?? [],
+        ),
+      ],
     );
   }
 

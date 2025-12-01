@@ -72,6 +72,17 @@ class CognitiveTrendsChart extends StatelessWidget {
                         },
                       ),
                     ),
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) {
+                          return Text(
+                            value.toStringAsFixed(0),
+                            style: const TextStyle(fontSize: 10),
+                          );
+                        },
+                      ),
                     ),
                     topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),

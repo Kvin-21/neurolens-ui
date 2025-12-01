@@ -91,6 +91,15 @@ class MoodInsights extends StatelessWidget {
   Widget _buildDefaultInsights() {
     return Column(
       children: [
+        Expanded(
+          child: _buildInsightRow(
+            icon: Icons.sentiment_very_satisfied,
+            color: const Color(0xFF4CAF50),
+            title: 'Overall Mood',
+            value: 'Positive',
+            subtitle: 'Good engagement',
+          ),
+        ),
         const SizedBox(height: 8),
         Expanded(
           child: _buildInsightRow(
