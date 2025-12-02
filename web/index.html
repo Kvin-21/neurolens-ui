@@ -1,38 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="NeuroLens - Cognitive health monitoring dashboard for caregivers">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- iOS meta tags & icons -->
+  <!-- iOS meta tags -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="neurolens_ui">
+  <meta name="apple-mobile-web-app-title" content="NeuroLens">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>neurolens_ui</title>
+  <title>NeuroLens</title>
   <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2196F3">
+
+  <style>
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2196F3, #1976D2, #0D47A1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loading-logo {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    .loading-logo::before {
+      content: "🧠";
+      font-size: 40px;
+    }
+
+    .loading-text {
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .loading-subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .hide-loading {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
+  <div id="loading" class="loading-container">
+    <div class="loading-logo"></div>
+    <div class="loading-text">NeuroLens</div>
+    <div class="loading-subtitle">Loading...</div>
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div id="app-container" style="opacity: 0;"></div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js');
+      });
+    }
+
+    window.addEventListener('flutter-first-frame', function () {
+      const loading = document.getElementById('loading');
+      const app = document.getElementById('app-container');
+
+      setTimeout(() => {
+        loading.classList.add('hide-loading');
+        app.style.opacity = '1';
+        app.style.transition = 'opacity 0.5s ease-in';
+
+        setTimeout(() => loading.style.display = 'none', 500);
+      }, 500);
+    });
+
+    window.addEventListener('error', function(e) {
+      console.error('Error:', e);
+      const loading = document.getElementById('loading');
+      if (loading) {
+        loading.innerHTML = `
+          <div class="loading-logo"></div>
+          <div class="loading-text">Loading Error</div>
+          <div class="loading-subtitle">Please refresh the page</div>
+        `;
+      }
+    });
+  </script>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

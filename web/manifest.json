@@ -1,13 +1,14 @@
 {
-    "name": "neurolens_ui",
-    "short_name": "neurolens_ui",
+    "name": "NeuroLens",
+    "short_name": "NeuroLens",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#2196F3",
+    "theme_color": "#2196F3",
+    "description": "Cognitive health monitoring dashboard for caregivers.",
+    "orientation": "any",
     "prefer_related_applications": false,
+    "categories": ["medical", "health"],
     "icons": [
         {
             "src": "icons/Icon-192.png",
