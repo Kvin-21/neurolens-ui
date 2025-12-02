@@ -1,16 +1,38 @@
-# neurolens_ui
+# NeuroLens Web UI
 
-A new Flutter project.
+The first archived version of a Flutter web dashboard for cognitive health monitoring, designed for caregivers and healthcare professionals, for the project 'Neurolens'.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run -d chrome
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Build for Production
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter build web
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The build output is in `build/web/`.
+
+## Project Structure
+
+- `lib/main.dart` — Entry point
+- `lib/config/` — API configuration
+- `lib/providers/` — State management (Provider)
+- `lib/screens/` — UI screens
+- `lib/services/` — API services
+- `lib/utils/` — Helper utilities
+- `lib/widgets/` — Reusable components
+- `web/` — Web assets
+
+## Backend
+
+Works with the backend API at `localhost:6767`.
+
+## Test Credentials
+
+- Patient ID: `P001`
+- Password: `password`
